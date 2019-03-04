@@ -19,7 +19,7 @@ class GetPopularMoviesUseCaseTest {
 
     @Before
     fun setUp() {
-        getPopularMoviesUseCase = GetPopularTvShowsUseCaseImpl(repository)
+        getPopularMoviesUseCase = GetPopularMoviesUseCaseImpl(repository)
     }
 
     @Test

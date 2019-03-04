@@ -6,7 +6,7 @@ import io.reactivex.Single
 
 
 interface GetPopularMoviesUseCase : GetMoviesUseCase
-class GetPopularTvShowsUseCaseImpl(private val repository: MoviesRepository) :
+class GetPopularMoviesUseCaseImpl(private val repository: MoviesRepository) :
     GetPopularMoviesUseCase {
     override fun invoke(page: Int): Single<List<Movie>> {
         if(page <=0){

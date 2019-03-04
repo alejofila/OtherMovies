@@ -1,8 +1,9 @@
 package com.example.alejofila.themovies.movies.presenter
 
 import android.util.Log
+import com.alejofila.domain.usecase.GetMoviesByKeywordUseCase
+import com.alejofila.domain.usecase.GetMoviesUseCase
 import com.alejofila.domain.usecase.GetPopularMoviesUseCase
-
 import com.alejofila.newsdemo.common.presenter.BasePresenter
 import com.example.alejofila.data.network.LAST_PAGE
 import com.example.alejofila.themovies.common.mapper.MovieUiMapper
@@ -11,7 +12,8 @@ import io.reactivex.Scheduler
 import io.reactivex.rxkotlin.subscribeBy
 
 class PopularMoviesPresenter(
-    private val useCase: GetPopularMoviesUseCase,
+    private val popularUseCase: GetPopularMoviesUseCase,
+    private val keywordUseCase: GetMoviesByKeywordUseCase,
     mainScheduler: Scheduler,
     backgroundScheduler: Scheduler
 ) :
@@ -22,7 +24,20 @@ class PopularMoviesPresenter(
 
     }
 
-    fun queryPopularMovies() {
+    fun queryMoviesByKeyword(keyword: String, shouldClear: Boolean = false) {
+        if (shouldClear) page = 1
+        keywordUseCase.keyword = keyword
+        queryMoviesWithUseCase(keywordUseCase)
+    }
+
+
+    fun queryPopularMovies(shouldClear: Boolean = false) {
+        if (shouldClear) page = 1
+        queryMoviesWithUseCase(popularUseCase)
+    }
+
+
+    private fun queryMoviesWithUseCase(useCase: GetMoviesUseCase) {
         if (morePages()) {
             disposableBag.add(useCase(page)
                 .subscribeOn(backgroundScheduler)
@@ -41,10 +56,13 @@ class PopularMoviesPresenter(
                             Log.e("Tag", "blabla")
                             view.showEmptyView()
                         } else {
+                            if(page == 1){
+                                view.resetMovieList()
+                            }
+                            view.hideEmptyView()
                             view.showNextPageOfMovies(it)
                             page++
                         }
-
                     }
 
                 ))
@@ -52,6 +70,7 @@ class PopularMoviesPresenter(
             view.showNoMoreMoviesMessage()
         }
     }
+
 
     /**
      * This is just for demo purposes, in production we should query

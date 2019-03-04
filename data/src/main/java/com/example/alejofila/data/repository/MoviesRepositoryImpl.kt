@@ -19,7 +19,7 @@ class MoviesRepositoryImpl(private val tMdbApi: TmdbApi) : MoviesRepository {
             .toList()
     }
 
-    override fun getMovieByKeyword(keyword: String, page: Int): Single<List<Movie>> {
+    override fun getMovieByKeyword(page: Int, keyword: String): Single<List<Movie>> {
         if (page <= 0) {
             throw IllegalStateException("Can't query 'movie/popular' endpoint with an invalid page, should be > 1, was $page")
         }

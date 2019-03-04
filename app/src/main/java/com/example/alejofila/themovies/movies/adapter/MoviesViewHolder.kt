@@ -29,11 +29,11 @@ class MoviesViewHolder(view: View) : RecyclerView.ViewHolder(view) {
                         override fun onBitmapFailed(errorDrawable: Drawable?) {
                         }
 
-                        override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
+                        override fun onBitmapLoaded(bitmap: Bitmap, from: Picasso.LoadedFrom?) {
                             item_poster_post.setImageBitmap(bitmap)
                             Palette.from(bitmap)
                                 .generate { palette ->
-                                    val textWatch = palette.vibrantSwatch
+                                    val textWatch = palette?.vibrantSwatch
                                     textWatch?.let {
                                         item_poster_palette.setBackgroundColor(textWatch.rgb)
                                         item_poster_release_date.setTextColor(textWatch.bodyTextColor)

@@ -2,6 +2,8 @@ package com.example.alejofila.themovies.di
 
 
 import com.alejofila.domain.MoviesRepository
+import com.alejofila.domain.usecase.GetMoviesByKeywordUseCase
+import com.alejofila.domain.usecase.GetMoviesByKeywordUseCaseImpl
 import com.alejofila.domain.usecase.GetPopularMoviesUseCase
 import com.alejofila.domain.usecase.GetPopularMoviesUseCaseImpl
 import com.example.alejofila.data.network.TmdbApi
@@ -26,9 +28,11 @@ val appModule = module{
     single<TmdbApi>{ TmdbService.getTmdbService()}
     single<MoviesRepository>{ MoviesRepositoryImpl(get()) }
     single<GetPopularMoviesUseCase>{ GetPopularMoviesUseCaseImpl(get()) }
+    single<GetMoviesByKeywordUseCase>{ GetMoviesByKeywordUseCaseImpl(get()) }
+
     single<Scheduler>(MAIN_SCHEDULER){ AndroidSchedulers.mainThread()}
     single<Scheduler>(BACKGROUND_SCHEDULER){ Schedulers.io()}
-    factory<PopularMoviesPresenter>{ PopularMoviesPresenter(get(),get(MAIN_SCHEDULER),get(BACKGROUND_SCHEDULER)) }
+    factory<PopularMoviesPresenter>{ PopularMoviesPresenter(get(),get(),get(MAIN_SCHEDULER),get(BACKGROUND_SCHEDULER)) }
 
 
 

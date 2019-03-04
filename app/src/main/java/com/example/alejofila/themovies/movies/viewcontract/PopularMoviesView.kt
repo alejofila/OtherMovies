@@ -7,4 +7,6 @@ interface PopularMoviesView{
     fun showNoMoreMoviesMessage()
     fun showServerError()
     fun showEmptyView()
+    fun hideEmptyView()
+    fun resetMovieList()
 }

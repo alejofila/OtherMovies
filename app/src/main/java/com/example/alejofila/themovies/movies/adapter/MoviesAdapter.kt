@@ -7,9 +7,8 @@ import com.example.alejofila.themovies.R
 import com.example.alejofila.themovies.common.uimodel.MoviesUiModel
 
 class MoviesAdapter : RecyclerView.Adapter<MoviesViewHolder>() {
-
     private  var movies = mutableListOf<MoviesUiModel>()
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): MoviesViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesViewHolder {
         return MoviesViewHolder(
             LayoutInflater.from(parent?.context).inflate(
                 R.layout.movie_item,
@@ -21,9 +20,13 @@ class MoviesAdapter : RecyclerView.Adapter<MoviesViewHolder>() {
     override fun getItemCount(): Int {
         return movies.size
     }
+    fun resetAdapter(){
+        movies = mutableListOf()
+        notifyDataSetChanged()
+    }
 
-    override fun onBindViewHolder(holder: MoviesViewHolder?, position: Int) {
-        holder?.bind(movies[position])
+    override fun onBindViewHolder(holder: MoviesViewHolder, position: Int) {
+        holder.bind(movies[position])
     }
 
     fun appendData(moreViews: List<MoviesUiModel>) {
@@ -33,8 +36,8 @@ class MoviesAdapter : RecyclerView.Adapter<MoviesViewHolder>() {
         notifyItemRangeInserted(currentSize, countSize)
     }
 
-    override fun onViewRecycled(holder: MoviesViewHolder?) {
+    override fun onViewRecycled(holder: MoviesViewHolder) {
         super.onViewRecycled(holder)
-        holder?.clear()
+        holder.clear()
     }
 }

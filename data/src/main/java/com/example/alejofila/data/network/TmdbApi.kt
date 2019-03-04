@@ -14,6 +14,6 @@ interface TmdbApi {
     @GET("movie/popular")
     fun getPopularMovies(@Query("page") page: Int): Single<MovieResponse>
 
-    @GET("/search/movie")
+    @GET("search/movie")
     fun getMovieByKeyowrd(@Query("page") page: Int,@Query("query") query: String):Single<MovieResponse>
 }

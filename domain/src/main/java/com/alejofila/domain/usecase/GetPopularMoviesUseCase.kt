@@ -5,9 +5,7 @@ import com.alejofila.domain.model.Movie
 import io.reactivex.Single
 
 
-interface GetPopularMoviesUseCase{
-    operator fun invoke(page: Int) : Single<List<Movie>>
-}
+interface GetPopularMoviesUseCase : GetMoviesUseCase
 class GetPopularTvShowsUseCaseImpl(private val repository: MoviesRepository) :
     GetPopularMoviesUseCase {
     override fun invoke(page: Int): Single<List<Movie>> {

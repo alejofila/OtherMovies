@@ -23,14 +23,21 @@ class GetPopularMoviesUseCaseTest {
     }
 
     @Test
-    fun `test  getting  empty  list  of movies `(){
+    fun `when valid page should return  empty  list  of movies `(){
         Mockito.`when`(repository.getPopularMovies(1)).thenReturn(Single.just(emptyList()))
         val testObserver = getPopularMoviesUseCase(1).test()
         testObserver.assertValue{it.isEmpty()}
-
     }
+
+    @Test(expected = IllegalStateException::class)
+    fun `when page is 0 should throw an exception `(){
+        val invalidPage = 0
+        getPopularMoviesUseCase
+        getPopularMoviesUseCase(invalidPage).test()
+    }
+
     @Test
-    fun `test getting list of multiple movies`() {
+    fun `when valid page should return list of multiple movies`() {
         val movie = Movie("blabla","blablaba","blablabla","asdasdasd")
         val movie2 =  Movie("blabla","blablaba","blablabla","asdasdasd")
         val list = listOf(movie, movie2)
@@ -38,6 +45,6 @@ class GetPopularMoviesUseCaseTest {
         Mockito.`when`(repository.getPopularMovies(page)).thenReturn(Single.just(list))
         val testObserver = getPopularMoviesUseCase(page).test()
         testObserver.assertValue{it==list}
-
     }
+
 }

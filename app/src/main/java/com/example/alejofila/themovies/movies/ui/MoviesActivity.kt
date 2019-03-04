@@ -75,8 +75,9 @@ class MoviesActivity : AppCompatActivity(), PopularMoviesView,
     }
 
     override fun onQueryTextChange(newText: String?): Boolean {
-        newText?.let {
-            if (newText.isNotBlank()) presenter.queryMoviesByKeyword(newText, true)
+        val query = newText ?: ""
+        if(query.isBlank()){
+            presenter.queryMoviesByKeyword(query, true)
         }
         return true
     }

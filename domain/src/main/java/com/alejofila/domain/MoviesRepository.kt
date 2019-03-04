@@ -1,7 +1,6 @@
 package com.alejofila.domain
 
 import com.alejofila.domain.model.Movie
-import com.alejofila.domain.model.TvShow
 import io.reactivex.Single
 
 interface  MoviesRepository{

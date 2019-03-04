@@ -1,8 +1,8 @@
 package com.example.alejofila.themovies.populartv.viewutils
 
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
 
 

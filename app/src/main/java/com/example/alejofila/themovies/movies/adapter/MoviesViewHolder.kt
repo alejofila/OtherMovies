@@ -1,24 +1,27 @@
-package com.example.alejofila.themovies.populartv.adapter
+package com.example.alejofila.themovies.movies.adapter
 
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.support.v7.graphics.Palette
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import com.alejofila.newsdemo.common.uimodel.TvShowUiModel
-import com.example.alejofila.data.network.TvShowService
+import com.example.alejofila.data.network.TmdbService
+import com.example.alejofila.themovies.common.uimodel.MoviesUiModel
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Target
-import kotlinx.android.synthetic.main.tv_show_item.view.*
+import kotlinx.android.synthetic.main.movie_item.view.*
 
-class TvShowViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-    fun bind(tvShow: TvShowUiModel) {
+class MoviesViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    fun bind(movies: MoviesUiModel) {
         itemView.run {
-            item_poster_title.text = tvShow.name
-            item_poster_rating.text = tvShow.rating.toString()
-            tvShow.image?.let {
+            item_poster_title.text = movies.title
+            item_poster_overview.text = movies.overview
+            item_poster_release_date.text = movies.releaseDate
+            movies.imagePath?.let {
                 Picasso.with(this.context)
-                    .load(TvShowService.getPosterPath(tvShow.image))
+                    .load(TmdbService.getPosterPath(movies.imagePath))
+                    .resize(300,300)
+                    .noFade()
                     .into(object : Target {
                         override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
                         }
@@ -33,7 +36,7 @@ class TvShowViewHolder(view: View) : RecyclerView.ViewHolder(view) {
                                     val textWatch = palette.vibrantSwatch
                                     textWatch?.let {
                                         item_poster_palette.setBackgroundColor(textWatch.rgb)
-                                        item_poster_rating.setTextColor(textWatch.bodyTextColor)
+                                        item_poster_release_date.setTextColor(textWatch.bodyTextColor)
                                         item_poster_title.setTextColor(textWatch.titleTextColor)
                                     }
 

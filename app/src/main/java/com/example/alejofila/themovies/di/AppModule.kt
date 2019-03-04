@@ -1,17 +1,15 @@
 package com.example.alejofila.themovies.di
 
 
-import com.alejofila.domain.TvShowsRepository
-import com.alejofila.domain.usecase.GetPopularTvShowsUseCase
-import com.alejofila.domain.usecase.GetPopularTvShowsUseCaseImpl
-
-import com.example.alejofila.data.network.TvShowService
+import com.alejofila.domain.MoviesRepository
+import com.alejofila.domain.usecase.GetPopularMoviesUseCase
+import com.alejofila.domain.usecase.GetPopularMoviesUseCaseImpl
 import com.example.alejofila.data.network.TmdbApi
-import com.example.alejofila.data.repository.TvShowsRepositoryImpl
+import com.example.alejofila.data.network.TmdbService
+import com.example.alejofila.data.repository.MoviesRepositoryImpl
 import com.example.alejofila.themovies.di.Constants.BACKGROUND_SCHEDULER
 import com.example.alejofila.themovies.di.Constants.MAIN_SCHEDULER
-import com.example.alejofila.themovies.populartv.presenter.PopularTvShowsPresenter
-
+import com.example.alejofila.themovies.movies.presenter.PopularMoviesPresenter
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -25,12 +23,12 @@ val appModule = module{
 
 
 
-    single<TmdbApi>{ TvShowService.getTVShowsApi()}
-    single<TvShowsRepository>{ TvShowsRepositoryImpl(get()) }
-    single<GetPopularTvShowsUseCase>{ GetPopularTvShowsUseCaseImpl(get()) }
+    single<TmdbApi>{ TmdbService.getTmdbService()}
+    single<MoviesRepository>{ MoviesRepositoryImpl(get()) }
+    single<GetPopularMoviesUseCase>{ GetPopularMoviesUseCaseImpl(get()) }
     single<Scheduler>(MAIN_SCHEDULER){ AndroidSchedulers.mainThread()}
     single<Scheduler>(BACKGROUND_SCHEDULER){ Schedulers.io()}
-    factory<PopularTvShowsPresenter>{ PopularTvShowsPresenter(get(),get(MAIN_SCHEDULER),get(BACKGROUND_SCHEDULER)) }
+    factory<PopularMoviesPresenter>{ PopularMoviesPresenter(get(),get(MAIN_SCHEDULER),get(BACKGROUND_SCHEDULER)) }
 
 
 

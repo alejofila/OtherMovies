@@ -74,7 +74,7 @@ class PopularMoviesPresenter(
 
     /**
      * This is just for demo purposes, in production we should query
-     * the value from PopularTvShowsResponse
+     * the value from the response
      */
     fun morePages(): Boolean = page < LAST_PAGE
 

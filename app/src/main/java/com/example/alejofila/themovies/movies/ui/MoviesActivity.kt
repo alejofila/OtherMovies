@@ -11,6 +11,7 @@ import android.view.Menu
 import android.view.View
 import android.widget.Toast
 import com.example.alejofila.themovies.R
+import com.example.alejofila.themovies.common.ext.hideKeyboard
 import com.example.alejofila.themovies.common.uimodel.MoviesUiModel
 import com.example.alejofila.themovies.movies.adapter.MoviesAdapter
 import com.example.alejofila.themovies.movies.presenter.PopularMoviesPresenter
@@ -57,19 +58,25 @@ class MoviesActivity : AppCompatActivity(), PopularMoviesView,
         searchView.queryHint = getString(R.string.search_menu_text)
         searchView.isIconified = true
         RxSearchView.queryTextChanges(searchView)
-            .filter { it.length >= 2}
+            .filter { it.length >= 2 }
             .debounce(300, TimeUnit.MILLISECONDS)
-            .subscribe { presenter.queryMoviesByKeyword(it.toString(),true) }
+            .subscribe { presenter.queryMoviesByKeyword(it.toString(), true) }
+        searchView.setOnCloseListener {
+            presenter.queryPopularMovies(true)
+            searchView.hideKeyboard()
+            return@setOnCloseListener false
+        }
         return true
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
+        empty_view.hideKeyboard()
         return true
     }
 
     override fun onQueryTextChange(newText: String?): Boolean {
-        if (newText?.isNotEmpty()!!) {
-            presenter.queryMoviesByKeyword(newText, true)
+        newText?.let {
+            if (newText.isNotBlank()) presenter.queryMoviesByKeyword(newText, true)
         }
         return true
     }

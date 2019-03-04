@@ -34,7 +34,7 @@ class MoviesViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
 }
 
-class CustomBitMapImageViewTarget(private val itemView: View, imageView: ImageView) : BitmapImageViewTarget(imageView) {
+private class CustomBitMapImageViewTarget(private val itemView: View, imageView: ImageView) : BitmapImageViewTarget(imageView) {
     override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
         super.onResourceReady(resource, transition)
         Palette.PaletteAsyncListener { palette ->

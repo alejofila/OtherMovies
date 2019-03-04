@@ -13,7 +13,7 @@ const val BASE_URL_POSTER = "https://image.tmdb.org/t/p/w342"
 const val LAST_PAGE = 8
 
 object TvShowService {
-    fun getTVShowsApi(): TvShowsApi {
+    fun getTVShowsApi(): TmdbApi {
         val requestInterceptor = Interceptor { chain ->
             val url = chain.request()
                 .url()
@@ -34,7 +34,7 @@ object TvShowService {
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(client)
             .build()
-        return retrofit.create(TvShowsApi::class.java)
+        return retrofit.create(TmdbApi::class.java)
     }
 
     fun getPosterPath(posterPath: String): String {

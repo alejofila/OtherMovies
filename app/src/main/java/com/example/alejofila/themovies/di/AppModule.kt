@@ -6,7 +6,7 @@ import com.alejofila.domain.usecase.GetPopularTvShowsUseCase
 import com.alejofila.domain.usecase.GetPopularTvShowsUseCaseImpl
 
 import com.example.alejofila.data.network.TvShowService
-import com.example.alejofila.data.network.TvShowsApi
+import com.example.alejofila.data.network.TmdbApi
 import com.example.alejofila.data.repository.TvShowsRepositoryImpl
 import com.example.alejofila.themovies.di.Constants.BACKGROUND_SCHEDULER
 import com.example.alejofila.themovies.di.Constants.MAIN_SCHEDULER
@@ -15,7 +15,6 @@ import com.example.alejofila.themovies.populartv.presenter.PopularTvShowsPresent
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module.module
 
 object Constants{
@@ -26,7 +25,7 @@ val appModule = module{
 
 
 
-    single<TvShowsApi>{ TvShowService.getTVShowsApi()}
+    single<TmdbApi>{ TvShowService.getTVShowsApi()}
     single<TvShowsRepository>{ TvShowsRepositoryImpl(get()) }
     single<GetPopularTvShowsUseCase>{ GetPopularTvShowsUseCaseImpl(get()) }
     single<Scheduler>(MAIN_SCHEDULER){ AndroidSchedulers.mainThread()}

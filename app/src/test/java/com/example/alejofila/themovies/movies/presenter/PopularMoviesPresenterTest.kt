@@ -1,10 +1,10 @@
-package com.example.alejofila.themovies.populartv.presenter
+package com.example.alejofila.themovies.movies.presenter
 
 import com.alejofila.domain.MoviesRepository
 import com.alejofila.domain.model.Movie
+import com.alejofila.domain.usecase.GetMoviesByKeywordUseCaseImpl
 import com.alejofila.domain.usecase.GetPopularMoviesUseCaseImpl
 import com.example.alejofila.themovies.common.mapper.MovieUiMapper
-import com.example.alejofila.themovies.movies.presenter.PopularMoviesPresenter
 import com.example.alejofila.themovies.movies.viewcontract.PopularMoviesView
 import io.reactivex.Single
 import io.reactivex.schedulers.TestScheduler
@@ -30,12 +30,12 @@ class PopularMoviesPresenterTest {
 
     @Before
     fun setUp() {
-        presenter = PopularMoviesPresenter(GetPopularMoviesUseCaseImpl(repository), testScheduler, testScheduler)
+        presenter = PopularMoviesPresenter(GetPopularMoviesUseCaseImpl(repository), GetMoviesByKeywordUseCaseImpl(repository),testScheduler, testScheduler)
         presenter.view = view
     }
 
     @Test
-    fun `when repository returns a non empty list should call showNextPageOfShows`() {
+    fun `when repository returns a non empty list should call showNextPageOfMovies`() {
         val movie = Movie("", "basdasd ", "2019-20-30", "asdsad")
         val movies = listOf(movie)
         val singleMovies = Single.just(movies)
@@ -52,7 +52,7 @@ class PopularMoviesPresenterTest {
         Mockito.`when`(repository.getPopularMovies(1)).thenReturn(singleEmptyMovies)
         presenter.queryPopularMovies()
         testScheduler.triggerActions()
-        Mockito.verify(view, VerificationModeFactory.times(1))?.showEmptyView()
+        Mockito.verify(view)?.showEmptyView()
     }
 
     @Test

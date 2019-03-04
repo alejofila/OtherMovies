@@ -1,6 +1,5 @@
 package com.example.alejofila.themovies.movies.presenter
 
-import android.util.Log
 import com.alejofila.domain.usecase.GetMoviesByKeywordUseCase
 import com.alejofila.domain.usecase.GetMoviesUseCase
 import com.alejofila.domain.usecase.GetPopularMoviesUseCase
@@ -47,13 +46,11 @@ class PopularMoviesPresenter(
                 .toList()
                 .subscribeBy(
                     onError = {
-                        Log.e("Tag", "Error in presenter onSubscribe $it.message")
                         view.showServerError()
                         view.showEmptyView()
                     },
                     onSuccess = {
                         if (it.isEmpty()) {
-                            Log.e("Tag", "blabla")
                             view.showEmptyView()
                         } else {
                             if(page == 1){

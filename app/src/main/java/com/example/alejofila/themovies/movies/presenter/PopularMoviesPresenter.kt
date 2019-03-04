@@ -4,9 +4,9 @@ import android.util.Log
 import com.alejofila.domain.usecase.GetMoviesByKeywordUseCase
 import com.alejofila.domain.usecase.GetMoviesUseCase
 import com.alejofila.domain.usecase.GetPopularMoviesUseCase
-import com.alejofila.newsdemo.common.presenter.BasePresenter
 import com.example.alejofila.data.network.LAST_PAGE
 import com.example.alejofila.themovies.common.mapper.MovieUiMapper
+import com.example.alejofila.themovies.common.presenter.BasePresenter
 import com.example.alejofila.themovies.movies.viewcontract.PopularMoviesView
 import io.reactivex.Scheduler
 import io.reactivex.rxkotlin.subscribeBy

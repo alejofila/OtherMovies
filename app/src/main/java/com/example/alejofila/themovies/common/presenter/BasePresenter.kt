@@ -1,4 +1,4 @@
-package com.alejofila.newsdemo.common.presenter
+package com.example.alejofila.themovies.common.presenter
 
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
